@@ -11,6 +11,7 @@ function getStyle(n, phase)
 
 function ProgressBar()
 {
+	/* Todo : link to actual store */
 	let donePhoto = 250;
 	let totalPhoto = 1750;
 	return <div className={style.progressBar}>

@@ -6,6 +6,7 @@
 	--inactive-color: #A0A3A7;
 	--inactive2-color: #E0E3E7;
 	--division-color: #F0F0F0;
+	--black-color: #111111;
 }
 
 html, body {
@@ -16,6 +17,7 @@ p {
 	font-size: 16px;
 	margin: 0px;
 	margin-bottom: 0.25em;
+	color: #111111;
 }
 a {
 	color: inherit;

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import Header from "./components/Header";
+import NextButton from "./components/NextButton";
+import PhaseContext from "./store/phaseContext.js";
 import { PHASE } from "./utils/constants.js";
+import "./styles/common.scss";
 
-function Body({phase, setPhase})
+function Body({phase})
 {
 	switch(phase)
 	{
@@ -18,11 +21,11 @@ function Body({phase, setPhase})
 function App()
 {
 	const [phase, setPhase] = useState(PHASE.CLASSIFY);
-	return <>
+	return <PhaseContext.Provider value={setPhase}>
 		<Header phase={phase} />
-		<Body phase={phase} setPhase={setPhase} />
-		<div onClick={()=>setPhase(phase=>phase%4+1)}>Next</div>
-	</>
+		<Body phase={phase} />
+		<NextButton />
+	</PhaseContext.Provider>
 }
 
 export default App;

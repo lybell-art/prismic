@@ -1,4 +1,4 @@
-@use "@/utils/colors.scss";
+@use "@/styles/colors.scss";
 
 header {
 	width: 100%;
@@ -28,6 +28,7 @@ header {
 		left: 25px;
 		bottom: calc(50% - 1px);
 		background: colors.$maingrad;
+		color: colors.$black;
 		z-index: -10;
 	}
 	@media (max-width: 767px){
