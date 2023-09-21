@@ -4,10 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Prismic - Main page</title>
+    <link rel="stylesheet" href="/common.css" />
+    <link rel="stylesheet" href="/main-page.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div class="main">
+      <div class="title-container">
+        <img class="title-logo" srcset="/prismic-logo-1x.png 400w, /prismic-logo.png 800w" src="/prismic-logo.png" alt="PRISMIC">
+        <p class="title-description">Fast & Convenient Manual Image Classifier</p>
+        <a href="./app/">
+          <div class="main-button grad-border">
+            <p>START!</p>
+            <img class="icon-title" src="/start.svg">
+          </div>
+        </a>
+      </div>
+      <img class="splash-image" src="/splash.svg">
+    </div>
   </body>
 </html>
