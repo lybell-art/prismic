@@ -25,9 +25,9 @@ function Header({phase})
 		<div className={style.nav}>
 			{[1,2,3,4].map((n)=><div key={`nav-${n}`} className={getStyle(n, phase)}/>)}
 		</div>
-		<div className={style.title}>
+		<div className={style.title} style={{"--phase":phase}}>
 			<p>{HEADERS[phase-1]}</p>
-			{phase === PHASE.CLASSIFY ?? <ProgressBar />}
+			{phase === PHASE.CLASSIFY && <ProgressBar />}
 		</div>
 	</header>
 }

@@ -2,7 +2,9 @@
 
 :root {
 	--main-gradient: linear-gradient(90deg, #4A95FD, #F998D2);
+	--secondary-color: #AD97E5;
 	--inactive-color: #A0A3A7;
+	--inactive2-color: #E0E3E7;
 	--division-color: #F0F0F0;
 }
 
