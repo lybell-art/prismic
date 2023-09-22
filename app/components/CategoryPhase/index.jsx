@@ -13,14 +13,24 @@ function CategoryNameSetter({index})
 {
 	const name = useCategoryStore( store=>store.category[index].name );
 	const changeLabel = useCategoryStore( store=>store.changeLabel );
-	return <input type="text" value={name} onChange={(e)=>changeLabel(index, e.target.value)} className={style.name} />;
+
+	function onChange(e)
+	{
+		changeLabel(index, e.target.value);
+	}
+
+	return <input type="text" value={name} className={style.name} onChange={onChange}/>;
 }
 
 function CategoryItem({index})
 {
+	const remove = useCategoryStore( store=>store.remove );
 	return <div className={style.item}>
 		<CategoryKeySetter index={index} />
 		<CategoryNameSetter index={index} />
+		<div className={style.deleteButton} onClick={()=>remove(index)}>
+			<img src="/remove.svg" alt="remove" />
+		</div>
 	</div>;
 }
 
