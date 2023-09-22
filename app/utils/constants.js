@@ -7,4 +7,6 @@ const PHASE = Object.freeze({
 
 const HEADERS = Object.freeze(["Upload Images", "Make Category", "Classify Pictures", "Download Result"]);
 
-export { PHASE, HEADERS };
+const MAX_CATEGORY_NUM = 9;
+
+export { PHASE, HEADERS, MAX_CATEGORY_NUM };
