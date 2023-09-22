@@ -1,8 +1,8 @@
 import style from "./style.module.scss";
 
-function CenterContainer({className, onClick, children})
+function CenterContainer({className, children, ...props})
 {
-	return <div className={`${style.container} ${className ?? ""}`} onClick={onClick}>
+	return <div className={`${style.container} ${className ?? ""}`} {...props}>
 		{children}
 	</div>;
 }
