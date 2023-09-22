@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import PhaseContext from "@/store/phaseContext.js";
-import style from "./NextButton.module.scss";
+import style from "./style.module.scss";
 
 function NextSvg()
 {

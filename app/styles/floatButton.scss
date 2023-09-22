@@ -1,0 +1,46 @@
+@use "./colors.scss";
+
+@mixin float-bottom {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+}
+
+@mixin float-button {
+	width: 70px;
+	height: 70px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 0.2s;
+	z-index: 10;
+	.caption {
+		position: absolute;
+		right: calc(100% + 15px);
+		margin-bottom: -8px;
+		font-size: 24px;
+		color: colors.$black;
+		z-index: -10;
+		user-select: none;
+	}
+	&.inactive {
+		pointer-events: none;
+		.caption {
+			color: colors.$inactive;
+		}
+	}
+	&:hover {
+		transform: scale(1.1);
+		@media (max-width: 767px){
+			&:hover {
+				transform: none;
+			}
+		}
+	}
+}
+
+@mixin round-button {
+	background: colors.$maingrad;
+	border-radius: 50%;
+}

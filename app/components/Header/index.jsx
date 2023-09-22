@@ -1,4 +1,4 @@
-import style from "./Header.module.scss";
+import style from "./style.module.scss";
 import { PHASE, HEADERS } from "@/utils/constants.js";
 
 function getStyle(n, phase)
