@@ -1,17 +1,36 @@
 import createZustandStore from "./createZustandStore.js";
+import { getUniqueName } from "@/utils/utils.js";
+
+function getNewCategoryName(category)
+{
+	
+	let newName = "Category "+nextNumber;
+
+	while(nameSet.has(newName))
+	{
+		newName = `Category ${nextNumber}(${i})`;
+	}
+}
+
+function createNewCategory(category)
+{
+	const nextNumber = category.length + 1;
+	const nameSet = new Set(category.map(({name})=>name));
+	const keySet = new Set(category.map(({key})=>key));
+	const newName = getUniqueName("Category "+nextNumber, category.map( ({name})=>name ));
+	const newKey = getUniqueName(""+nextNumber, category.map( ({key})=>key ), (_,i)=>""+i);
+	return {
+		name: newName, 
+		key: newKey,
+		hash: Math.floor(Math.random()*(1<<31))
+	};
+}
 
 const categoryStore = {
 	category: [],
 	add()
 	{
-		const nextNumber = this.category.length + 1;
-		const newCategory = [...this.category];
-		newCategory.push({
-			name: "Category "+nextNumber, 
-			key:String.fromCharCode(48 + nextNumber),
-			hash: Math.floor(Math.random()*(1<<31))
-		});
-		return {category: newCategory};
+		return {category: [...this.category, createNewCategory(this.category)]};
 	},
 	remove(index)
 	{

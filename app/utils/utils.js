@@ -6,4 +6,16 @@ function getTextWidth(text, font) {
 	return metrics.width;
 }
 
-export { getTextWidth };
+function getUniqueName(name, pool, nameRule=(name, index)=>`${name}_(${index})`)
+{
+	if(!pool.includes(name)) return name;
+	const poolSet = new Set(pool);
+	let newName = nameRule(name, 1);
+	for(let index = 2; poolSet.has(newName); index++)
+	{
+		newName = nameRule(name, index);
+	}
+	return newName;
+}
+
+export { getTextWidth, getUniqueName };
