@@ -133,6 +133,7 @@
 		width: 30px;
 		height: 30px;
 		transition: transform 0.2s;
+		user-select: none;
 	}
 	@media (max-width: 767px){
 		transform: none;

@@ -1,30 +1,15 @@
 import NextButton from "@/components/NextButton";
 import CategoryKeySetter from "./CategoryKeySetter.jsx";
-import AddIcon from "@/assets/add.svg?react";
+import CategoryNameSetter from "./CategoryNameSetter.jsx";
 import useCategoryStore from "@/store/categoryStore.js";
 import {MAX_CATEGORY_NUM} from "@/utils/constants.js";
 import style from "./style.module.scss";
-
-function CategoryNameSetter({index})
-{
-	const name = useCategoryStore( store=>store.category[index].name );
-	const changeLabel = useCategoryStore( store=>store.changeLabel );
-
-	function onChange(e)
-	{
-		changeLabel(index, e.target.value);
-	}
-	function onBlur(e)
-	{
-		console.log("nye");
-	}
-
-	return <input type="text" value={name} className={style.name} onChange={onChange} onBlur={onBlur}/>;
-}
+import AddIcon from "@/assets/add.svg?react";
 
 function CategoryItem({index})
 {
 	const remove = useCategoryStore( store=>store.remove );
+	
 	return <div className={style.item}>
 		<CategoryKeySetter index={index} />
 		<CategoryNameSetter index={index} />

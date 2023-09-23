@@ -31,8 +31,8 @@ function CategoryKeySetter({index})
 		function onKeyDown(e)
 		{
 			e.preventDefault();
-			const key = convertKey(e.key);
-			setKeyBuffer(key);
+			const key = e.key;
+			setKeyBuffer(convertKey(key));
 			if(keyCode === key || validateKey(key)) {
 				setKeyState(IDLE);
 				changeHotkey(index, key);

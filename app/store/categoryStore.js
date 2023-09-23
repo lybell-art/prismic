@@ -1,17 +1,6 @@
 import createZustandStore from "./createZustandStore.js";
 import { getUniqueName } from "@/utils/utils.js";
 
-function getNewCategoryName(category)
-{
-	
-	let newName = "Category "+nextNumber;
-
-	while(nameSet.has(newName))
-	{
-		newName = `Category ${nextNumber}(${i})`;
-	}
-}
-
 function createNewCategory(category)
 {
 	const nextNumber = category.length + 1;
