@@ -1,14 +1,9 @@
 import NextButton from "@/components/NextButton";
+import CategoryKeySetter from "./CategoryKeySetter.jsx";
 import AddIcon from "@/assets/add.svg?react";
 import useCategoryStore from "@/store/categoryStore.js";
 import {MAX_CATEGORY_NUM} from "@/utils/constants.js";
 import style from "./style.module.scss";
-
-function CategoryKeySetter({index})
-{
-	const keyCode = useCategoryStore( store=>store.category[index].key );
-	return <div className={style.key}>{keyCode}</div>;
-}
 
 function CategoryNameSetter({index})
 {
