@@ -1,4 +1,5 @@
 import NextButton from "@/components/NextButton";
+import AddIcon from "@/assets/add.svg?react";
 import useCategoryStore from "@/store/categoryStore.js";
 import {MAX_CATEGORY_NUM} from "@/utils/constants.js";
 import style from "./style.module.scss";
@@ -18,8 +19,12 @@ function CategoryNameSetter({index})
 	{
 		changeLabel(index, e.target.value);
 	}
+	function onBlur(e)
+	{
+		console.log("nye");
+	}
 
-	return <input type="text" value={name} className={style.name} onChange={onChange}/>;
+	return <input type="text" value={name} className={style.name} onChange={onChange} onBlur={onBlur}/>;
 }
 
 function CategoryItem({index})
@@ -48,7 +53,12 @@ function CategoryPhase()
 		<main>
 			<div className={style.container}>
 				{category.map(({hash},index)=><CategoryItem index={index} key={hash}/>)}
-				{category.length < MAX_CATEGORY_NUM && <div className={style.addButton} onClick={addClass}>Add Class</div>}
+				{category.length < MAX_CATEGORY_NUM && 
+					<div className={`grad-border ${style.addButton}`} onClick={addClass}>
+						<AddIcon className={style.addIcon} />
+						<p>Add Class</p>
+					</div>
+				}
 			</div>
 		</main>
 		<NextButton inactive={category.length === 0}/>

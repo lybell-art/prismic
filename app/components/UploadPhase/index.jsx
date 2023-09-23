@@ -2,7 +2,7 @@ import { useRef } from "react";
 import NextButton from "@/components/NextButton";
 import CenterContainer from "@/components/CenterContainer";
 import useDirectoryStore from "@/store/directoryStore.js";
-import UploadImg from "./upload.svg?react"; 
+import UploadImg from "@/assets/upload.svg?react"; 
 
 function UploadPhase()
 {
