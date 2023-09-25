@@ -1,27 +1,22 @@
 import { useEffect } from "react";
+import ClassifyButton from "./ClassifyButton.jsx";
+import DiscardButton from "./DiscardButton.jsx";
+import ImageViewer from "./ImageViewer.jsx";
 import useCategoryStore from "@/store/categoryStore.js";
 import useDirectoryStore from "@/store/directoryStore.js";
-import {convertKey} from "@/businessLogic/categoryLogic.js";
-
-function ClassifyButton({keyCommand, name})
-{
-	return <div>
-		<div>{convertKey(keyCommand)}</div>
-		<div>{name}</div>
-	</div>
-}
+import style from "./style.module.scss";
 
 function ClassifyController()
 {
-	const currentFile = useDirectoryStore( store=>store.currentFile );
 	const category = useCategoryStore( store=>store.category );
 
-	return <main>
-		<img src={currentFile} alt="Current File" />
-		<div>
+	return <div className={style.container}>
+		<ImageViewer />
+		<div className={style.buttonContainer}>
 			{category.map( ({key, name, hash})=><ClassifyButton key={hash} keyCommand={key} name={name}/> )}
+			<DiscardButton />
 		</div>
-	</main>;
+	</div>;
 }
 
 function ClassifyPhase()
@@ -31,7 +26,7 @@ function ClassifyPhase()
 		setCurrentFile();
 	}, []);
 
-	return <ClassifyController />;
+	return <main><ClassifyController /></main>;
 }
 
 export default ClassifyPhase;
