@@ -9,7 +9,7 @@ function useIntersectionObserver(callback, threshold=0.0)
 		}, {threshold} );
 		observer.observe(observeeRef.current);
 		return ()=>observer.disconnect();
-	}, [observeeRef] );
+	}, [observeeRef, callback] );
 	return observeeRef;
 }
 

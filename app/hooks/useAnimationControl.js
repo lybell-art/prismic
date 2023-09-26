@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 
 const IDLE = Symbol("idle");
 const ANIMATE_FRONT = Symbol("front");
@@ -13,7 +13,7 @@ function useAnimationControl({forward, backward, active})
 		switch(animationState)
 		{
 			case ANIMATE_FRONT: return forward;
-			case ANIMATE_BACK: return `${backward} ${active}`;
+			case ANIMATE_BACK: return `${active} ${backward}`;
 			case ACTIVE: return active;
 		}
 		return "";
@@ -38,28 +38,24 @@ function useAnimationControl({forward, backward, active})
 		return ()=>targetRef.current.removeEventListener("animationend", animEnd);
 	}, [animationState, isReversed] );
 
-	function setActive()
-	{
-		if(animationState === ACTIVE || animationState === ANIMATE_BACK) return;
-		if(animationState === ANIMATE_FRONT)
-		{
-			setReversed(true);
-			return;
+	const activate = useCallback(
+		(state)=>{
+			if(state)
+			{
+				if(animationState === ACTIVE || animationState === ANIMATE_FRONT) return;
+				if(animationState === ANIMATE_BACK) setReversed(true);
+				else setAnimationState(ANIMATE_FRONT);
+			}
+			else
+			{
+				if(animationState === IDLE || animationState === ANIMATE_BACK) return;
+				if(animationState === ANIMATE_FRONT) setReversed(true);
+				else setAnimationState(ANIMATE_BACK);
+			}
 		}
-		setAnimationState(ANIMATE_FRONT);
-	}
-	function setDeactive()
-	{
-		if(animationState === IDLE || animationState === ANIMATE_FRONT) return;
-		if(animationState === ANIMATE_BACK)
-		{
-			setReversed(true);
-			return;
-		}
-		setAnimationState(ANIMATE_BACK);
-	}
+	, [animationState]);
 
-	return [targetRef, className, (state)=>(state ? setActive() : setDeactive())];
+	return [targetRef, className, activate];
 }
 
 export default useAnimationControl;
