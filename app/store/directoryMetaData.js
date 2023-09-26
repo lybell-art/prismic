@@ -9,7 +9,7 @@ class DirectoryMetadata
 	{
 		return this.urlToDirectory.size;
 	}
-	add(url, directory, file)
+	add(url, file, directory)
 	{
 		this.urlToDirectory.set(url, directory);
 		this.fileToUrl.set(file, url);
