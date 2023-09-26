@@ -7,7 +7,11 @@ function ClassifyButton({keyCommand, name})
 {
 	const classify = useDirectoryStore(store=>store.classify);
 	const setCurrentFile = useDirectoryStore(store=>store.setCurrentFile);
-	const select = useCallback(()=>{classify(name); setCurrentFile();}, [classify, setCurrentFile]);
+
+	const select = useCallback(()=>{
+		classify(name);
+		setCurrentFile();
+	}, [classify, setCurrentFile]);
 	useEffect( ()=>{
 		function onKey({key})
 		{

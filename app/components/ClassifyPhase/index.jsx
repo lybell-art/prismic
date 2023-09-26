@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import ImageViewer from "./ImageViewer";
 import ClassifyController from "./ClassifyController";
 import useDirectoryStore from "@/store/directoryStore.js";
+import PhaseContext from "@/store/phaseContext.js";
+import {isDone as isDoneChecker} from "@/businessLogic/directoryLogic.js";
+import {PHASE} from "@/utils/constants.js";
 import style from "./style.module.scss";
 
 function ClassifyContainer()
@@ -15,9 +18,14 @@ function ClassifyContainer()
 function ClassifyPhase()
 {
 	const setCurrentFile = useDirectoryStore( store=>store.setCurrentFile );
+	const isDone = useDirectoryStore( isDoneChecker );
+	const setPhase = useContext(PhaseContext);
 	useEffect(()=>{
 		setCurrentFile();
 	}, []);
+	useEffect(()=>{
+		if(isDone) setPhase(PHASE.DOWNLOAD);
+	}, [isDone]);
 
 	return <main><ClassifyContainer /></main>;
 }

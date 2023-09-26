@@ -35,7 +35,7 @@ function useAnimationControl({forward, backward, active})
 			else if(animationState === ANIMATE_BACK) setAnimationState(isReversed ? ACTIVE : IDLE);
 		}
 		targetRef.current.addEventListener("animationend", animEnd);
-		return ()=>targetRef.current.removeEventListener("animationend", animEnd);
+		return ()=>targetRef.current?.removeEventListener("animationend", animEnd);
 	}, [animationState, isReversed] );
 
 	const activate = useCallback(

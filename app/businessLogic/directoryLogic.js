@@ -8,4 +8,9 @@ function getTotalAmount(store)
 	return store._metadata.size;
 }
 
-export {getDoneAmount, getTotalAmount};
+function isDone(store)
+{
+	return store.unsorted.size === 0;
+}
+
+export {getDoneAmount, getTotalAmount, isDone};
