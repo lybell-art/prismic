@@ -1,5 +1,6 @@
-import style from "./style.module.scss";
+import ProgressBar from "./ProgressBar.jsx";
 import { PHASE, HEADERS } from "@/utils/constants.js";
+import style from "./style.module.scss";
 
 function getStyle(n, phase)
 {
@@ -7,17 +8,6 @@ function getStyle(n, phase)
 	if(n === phase) additionalClass = `${style.active} grad-border`;
 	else additionalClass = style.inactive;
 	return `${style.bullet} ${additionalClass}`;
-}
-
-function ProgressBar()
-{
-	/* Todo : link to actual store */
-	let donePhoto = 250;
-	let totalPhoto = 1750;
-	return <div className={style.progressBar}>
-		<div className={style.bar} style={{"--progress":donePhoto/totalPhoto}}></div>
-		<p className={style.caption}>{donePhoto}/{totalPhoto}</p>
-	</div>
 }
 
 function Header({phase})

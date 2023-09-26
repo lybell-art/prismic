@@ -5,6 +5,10 @@ class DirectoryMetadata
 		this.urlToDirectory = new Map();
 		this.fileToUrl = new Map();
 	}
+	get size()
+	{
+		return this.urlToDirectory.size;
+	}
 	add(url, directory, file)
 	{
 		this.urlToDirectory.set(url, directory);
