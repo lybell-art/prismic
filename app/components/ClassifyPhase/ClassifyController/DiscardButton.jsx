@@ -1,9 +1,18 @@
+import {useEffect, useCallback} from "react";
 import useConfirmModal from "@/components/Modal/ConfirmModal.jsx";
+import useDirectoryStore from "@/store/directoryStore.js";
 import style from "./style.module.scss";
 
 function DiscardButton()
 {
-	const [setOpened, ConfirmModal] = useConfirmModal()
+	const _discard = useDirectoryStore(store=>store.discard);
+	const setCurrentFile = useDirectoryStore(store=>store.setCurrentFile);
+	const discard = useCallback(()=>{
+		_discard();
+		setCurrentFile();
+	}, [_discard, setCurrentFile]);
+
+	const [setOpened, ConfirmModal] = useConfirmModal(()=>discard());
 	return <>
 		<div className={`${style.button} ${style.discardButton}`} onClick={()=>setOpened(true)}>
 			<img src="/remove.svg" alt="remove" />

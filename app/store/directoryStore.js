@@ -90,7 +90,7 @@ const directoryStore = {
 	discard()
 	{
 		const directory = findDirectory(this.currentFile, this);
-		const data = findFileFromDirectory(file, directory, this);
+		const data = findFileFromDirectory(this.currentFile, directory, this);
 		this._metadata.delete(data);
 		URL.revokeObjectURL(this.currentFile);
 		this._removeFile(this.currentFile, directory);
