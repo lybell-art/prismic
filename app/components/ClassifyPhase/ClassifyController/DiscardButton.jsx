@@ -1,6 +1,7 @@
 import {useEffect, useCallback} from "react";
 import useConfirmModal from "@/components/Modal/ConfirmModal.jsx";
 import useDirectoryStore from "@/store/directoryStore.js";
+import useHold from "@/hooks/useHold.js";
 import style from "./style.module.scss";
 
 function DiscardButton()
@@ -11,10 +12,30 @@ function DiscardButton()
 		_discard();
 		setCurrentFile();
 	}, [_discard, setCurrentFile]);
+	const [setOpened, ConfirmModal] = useConfirmModal(discard);
+	const [startHold, endHold] = useHold(()=>setOpened(true), discard);
 
-	const [setOpened, ConfirmModal] = useConfirmModal(()=>discard());
+	useEffect( ()=>{
+		function onKeyDown({key})
+		{
+			if(key !== "Delete" && key !== "Backspace") return;
+			startHold();
+		}
+		function onKeyUp({key})
+		{
+			if(key !== "Delete" && key !== "Backspace") return;
+			endHold();
+		}
+		document.addEventListener("keydown", onKeyDown);
+		document.addEventListener("keyup", onKeyUp);
+		return ()=>{
+			document.removeEventListener("keydown", onKeyDown);
+			document.removeEventListener("keyup", onKeyUp);
+		}
+	}, [startHold, endHold] );
+
 	return <>
-		<div className={`${style.button} ${style.discardButton}`} onClick={()=>setOpened(true)}>
+		<div className={`${style.button} ${style.discardButton}`} onMouseDown={startHold} onMouseUp={endHold}>
 			<img src="/remove.svg" alt="remove" />
 			<p>Discard</p>
 		</div>
