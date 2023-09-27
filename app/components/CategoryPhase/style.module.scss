@@ -1,4 +1,5 @@
 @use "@/styles/colors.scss";
+@use "@/styles/mixins.scss";
 
 .container {
 	position: absolute;
@@ -30,18 +31,16 @@
 }
 
 .key {
+	@include mixins.center;
 	width: 56px;
 	height: 100%;
+	padding-top: 8px;
 	box-sizing: border-box;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-shrink: 0;
 	color: white;
 	background-color: colors.$blue;
 	font-size: calc(24px * var(--text-scale, 1));
 	font-family: "Prismic Main Font";
-	padding-top: 8px;
-	flex-shrink: 0;
 	@media (max-width: 767px){
 		display: none;
 	}
@@ -76,17 +75,15 @@
 }
 
 .addButton {
+	@include mixins.center;
 	position: absolute;
 	bottom: 0px;
 	--margin: 3px;
 	width: calc(100% - var(--margin)*2);
 	height: calc(56px - var(--margin)*2);
 	margin: var(--margin);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
 	box-sizing: border-box;
+	gap: 10px;
 	border: 3px dashed white;
 	border-radius: 8px;
 	cursor: pointer;
@@ -116,12 +113,10 @@
 }
 
 .deleteButton {
+	@include mixins.center;
 	width: 80px;
 	height: 100%;
 	background-color: colors.$red;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-shrink: 0;
 	transform: translateX(100%);
 	transition: transform 0.3s ease;

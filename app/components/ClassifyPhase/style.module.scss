@@ -1,13 +1,13 @@
+@use "@/styles/mixins.scss";
+
 .container {
+	@include mixins.center;
 	position: relative;
 	width: 100%;
 	max-width: 800px;
 	height: calc(100vh - 170px);
 	margin: 40px auto 0px auto;
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	gap: 20px;
 	@media (max-width: 767px){
 		height: max-content;

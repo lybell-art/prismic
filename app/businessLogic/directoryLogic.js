@@ -1,6 +1,6 @@
 function getDoneAmount(store)
 {
-	return store._metadata.size - store.unsorted.size;
+	return store._metadata.size - store.unsorted.size + 1;
 }
 
 function getTotalAmount(store)

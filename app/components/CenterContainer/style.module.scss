@@ -1,6 +1,8 @@
 @use "@/styles/colors.scss";
+@use "@/styles/mixins.scss";
 
 .container {
+	@include mixins.center;
 	position: absolute;
 	--width: 800px;
 	--height: 500px;
@@ -9,9 +11,6 @@
 	width: var(--width);
 	height: calc(100vh - var(--header-height) - 140px);
 	max-height: var(--height);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	flex-direction: column;
 	gap: 5px;
 	border: 3px dashed colors.$inactive;

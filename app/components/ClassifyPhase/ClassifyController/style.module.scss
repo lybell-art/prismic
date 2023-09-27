@@ -1,12 +1,7 @@
 @use "@/styles/colors.scss";
+@use "@/styles/mixins.scss";
 
 $buttonHeight: 36px;
-
-@mixin center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
 
 .buttonContainer {
 	width: 100%;
@@ -70,13 +65,14 @@ $buttonHeight: 36px;
 		}
 	}
 	.key {
+		@include mixins.center;
 		width: $buttonHeight;
 		height: 100%;
+		padding-top: 5px;
 		box-sizing: border-box;
+
 		background-color: colors.$blue;
 		color: white;
-		padding-top: 5px;
-		@include center;
 		border-radius: 5px 0px 10px 5px;
 		font-family: "Prismic Main Font";
 		font-size: 20px;
@@ -86,10 +82,11 @@ $buttonHeight: 36px;
 	}
 
 	.label {
+		@include mixins.center;
 		height: 100%;
 		padding: 0px 15px;
 		box-sizing: border-box;
-		@include center;
+
 		background-color: white;
 		color: colors.$black;
 		font-family: "Prismic Main Font";
@@ -103,16 +100,15 @@ $buttonHeight: 36px;
 }
 
 .discardButton {
+	@include mixins.center;
 	width: 160px;
+	padding: 0px 15px;
+	gap: 5px;
+	flex-direction: row;
+
 	background-color: colors.$red;
 	color: white;
 	font-family: "Prismic Main Font";
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	padding: 0px 15px;
-	gap: 5px;
 	img {
 		width: 24px;
 		height: 24px;

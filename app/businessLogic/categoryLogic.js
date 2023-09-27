@@ -7,6 +7,7 @@ function validateCategory(newName, category = useCategory.getState().category)
 
 function validateKey(newKey, category = useCategory.getState().category)
 {
+	if(newKey === "Backspace" || newKey === "Escape") return false;
 	return !(category.some(({key})=>key === newKey));
 }
 
