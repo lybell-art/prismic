@@ -13,7 +13,7 @@ function DiscardButton()
 		setCurrentFile();
 	}, [_discard, setCurrentFile]);
 	const [setOpened, ConfirmModal] = useConfirmModal(discard);
-	const [startHold, endHold] = useHold(()=>setOpened(true), discard);
+	const [startHold, endHold, isHolding] = useHold(()=>setOpened(true), discard);
 
 	useEffect( ()=>{
 		function onKeyDown({key})
@@ -35,7 +35,9 @@ function DiscardButton()
 	}, [startHold, endHold] );
 
 	return <>
-		<div className={`${style.button} ${style.discardButton}`} onMouseDown={startHold} onMouseUp={endHold}>
+		<div className={`${style.button} ${style.discardButton} ${isHolding ? style.holding : ""}`}
+			onMouseDown={startHold}
+			onMouseUp={endHold}>
 			<img src="/remove.svg" alt="remove" />
 			<p>Discard</p>
 		</div>
