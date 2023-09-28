@@ -16,9 +16,9 @@ function createNewCategory(category)
 }
 
 const dummyData = [
-	{name: "Original Outfit", key:"1", hash:2500001},
-	{name: "Second Outfit", key:"2", hash:2500002},
-	{name: "Third Outfit", key:"3", hash:2500003},
+	// {name: "Original Outfit", key:"1", hash:2500001},
+	// {name: "Second Outfit", key:"2", hash:2500002},
+	// {name: "Third Outfit", key:"3", hash:2500003},
 	{name: "Fourth Outfit", key:"q", hash:2500004},
 	{name: "Fifth Outfit", key:"w", hash:2500005},
 	{name: "Sixth Outfit", key:"e", hash:2500006},

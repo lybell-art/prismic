@@ -45,6 +45,9 @@ $shrinkedHeight: 160;
 
 .shrink {
 	height: $shrinkedHeight+px;
+	& ~ div {
+		min-height: calc(100vh - #{$shrinkedHeight}px - 20px);
+	}
 }
 
 @keyframes shrinkAnim {
