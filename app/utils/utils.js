@@ -18,4 +18,27 @@ function getUniqueName(name, pool, nameRule=(name, index)=>`${name}_(${index})`)
 	return newName;
 }
 
-export { getTextWidth, getUniqueName };
+function debounce(func, delay)
+{
+	let lastCalledTime = null;
+	let _args = [];
+	return function(...args)
+	{
+		_args = args;
+		if(lastCalledTime !== null && lastCalledTime + delay > Date.now()) return;
+		if(lastCalledTime === null) lastCalledTime = Date.now();
+		setTimeout(()=>{
+			func(..._args);
+			lastCalledTime = null;
+		}, delay);
+	}
+}
+
+function clamp(value, min, max)
+{
+	if(value < min) return min;
+	if(value > max) return max;
+	return value;
+}
+
+export { getTextWidth, getUniqueName, debounce, clamp };
