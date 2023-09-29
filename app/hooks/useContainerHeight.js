@@ -7,9 +7,10 @@ function useContainerHeight()
 	const ref = useRef(null);
 	useEffect( ()=>{
 		if(ref.current === null) return;
+		setHeight(ref.current.offsetHeight);
 		const debouncer = debounce( ([entry])=>{
 			setHeight(entry.contentRect.height);
-		}, 350 );
+		}, 250 );
 
 		const resizeObserver = new ResizeObserver( debouncer );
 		resizeObserver.observe(ref.current);

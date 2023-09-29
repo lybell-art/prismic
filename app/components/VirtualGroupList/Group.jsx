@@ -21,7 +21,8 @@ function createItem(component, content, style, key)
  * @param pickFunc(Function(content, index)=>Any) index에서 아이템을 반환하는 매핑 함수
  * @return ReactComponent
  */
-function Group({name="", header, content, template,
+function Group({name="", header=name, content,
+	template, 
 	height, column=1, itemSize, itemGap=0, 
 	startIdx, endIdx, 
 	setFold=null, 
@@ -36,7 +37,6 @@ function Group({name="", header, content, template,
 			top: Math.floor(i/column) * (itemSize + itemGap),
 			left: (i%column) * (itemSize + itemGap)
 		};
-		console.log(style);
 		const elem = createItem(template, pickFunc(content, i), style, name+"_"+i);
 		childList.push(elem);
 	}
