@@ -17,12 +17,7 @@ function isDone(store)
 
 function getTrainableAmount(store)
 {
-	return store.sorted.reduce( (sum, dir)=>sum+Math.max(dir.size, MAX_TRAINABLE_ITEMS), 0 );
+	return store.sorted.reduce( (sum, dir)=>sum+Math.min(dir.size, MAX_TRAINABLE_ITEMS), 0 );
 }
 
-function getTrainableMaxAmount(store)
-{
-	return store.sorted.size * MAX_TRAINABLE_ITEMS;
-}
-
-export {getDoneAmount, getTotalAmount, isDone, getTrainableAmount, getTrainableMaxAmount};
+export {getDoneAmount, getTotalAmount, isDone, getTrainableAmount};

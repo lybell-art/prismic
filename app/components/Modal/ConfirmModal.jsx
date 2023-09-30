@@ -22,6 +22,9 @@ function useConfirmModal(func)
 		setOpened(false);
 		openScroll();
 	}
+
+	useEffect( ()=>()=>keyListener.setLock(-1), [] );
+
 	function render({promptMessage, confirmMessage})
 	{
 		return <div className={`${style.modalContainer} ${opened ? "" : style.hidden}`}>
