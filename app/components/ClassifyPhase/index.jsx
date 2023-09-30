@@ -1,6 +1,7 @@
 import { useEffect, useContext } from "react";
 import ImageViewer from "./ImageViewer";
 import ClassifyController from "./ClassifyController";
+import Aside from "./Aside";
 import useDirectoryStore from "@/store/directoryStore.js";
 import PhaseContext from "@/store/phaseContext.js";
 import {isDone as isDoneChecker} from "@/businessLogic/directoryLogic.js";
@@ -27,7 +28,10 @@ function ClassifyPhase()
 		if(isDone) setPhase(PHASE.DOWNLOAD);
 	}, [isDone]);
 
-	return <main><ClassifyContainer /></main>;
+	return <>
+		<main><ClassifyContainer /></main>
+		<Aside />
+	</>;
 }
 
 export default ClassifyPhase;
