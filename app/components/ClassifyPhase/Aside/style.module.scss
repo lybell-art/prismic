@@ -1,5 +1,30 @@
 @use "@/styles/colors.scss";
 @use "@/styles/floatButton.scss";
+@use "@/styles/mixins.scss";
+
+@mixin mobile-button {
+	@media (max-width: 1365px){
+		position: relative;
+		width: 50px;
+		height: 50px;
+		.icon {
+			width: 30px;
+			height: 30px;
+		}
+		.caption {
+			color: white;
+			font-size: 20px;
+		}
+	}
+}
+
+@mixin hamburger-element {
+	width: 24px;
+	height: 4px;
+	background-color: white;
+	border-radius: 2px;
+	transition: transform 0.3s;
+}
 
 .asidePc {
 	@include floatButton.float-bottom;
@@ -18,6 +43,60 @@
 	}
 }
 
+.menuButton {
+	@include mixins.center;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	width: 60px;
+	height: 60px;
+	border-radius: 30px 0px 30px 30px;
+	background: colors.$maingrad;
+	z-index: 2;
+}
+
+.hamburgerIcon {
+	@include hamburger-element;
+
+	&::before, &::after {
+		content: "";
+		position: absolute;
+		@include hamburger-element;
+	}
+	&::before {
+		transform: translateY(-10px);
+	}
+	&::after {
+		transform: translateY(10px);
+	}
+	&.active {
+		transform: rotate(45deg);
+		&::before {
+			transform: translateY(0px);
+		}
+		&::after {
+			transform: translateY(0px) rotate(-90deg);
+		}
+	}
+}
+
+.mobileMenu {
+	position: absolute;
+	top: 80px;
+	right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+    opacity: 1;
+	transition: opacity 0.2s;
+	z-index: 1;
+	&.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
 .directoryButton {
 	@include floatButton.float-button;
 	@include floatButton.round-button;
@@ -26,6 +105,7 @@
 		width: 40px;
 		height: 40px;
 	}
+	@include mobile-button;
 }
 
 .aiButton {
@@ -37,6 +117,7 @@
 		width: 45px;
 		height: 45px;
 	}
+	@include mobile-button;
 	.caption {
 		display: flex;
 		flex-direction: column;
@@ -45,14 +126,15 @@
 		align-items: flex-end;
 	}
 	.large {
-		font-size: 24px;
+		font-size: 1em;
+		color: inherit;
 		margin: 0;
 	}
 	.small {
 		width: fit-content;
 		padding: 4px 10px 0px;
 		border-radius: 12px;
-		font-size: 12px;
+		font-size: 0.5em;
 		color: white;
 		background-color: colors.$secondary;
 	}
@@ -68,8 +150,13 @@
 		.icon {
 			fill: colors.$inactive;
 		}
-		.large {
+		.caption {
 			color: colors.$inactive;
+		}
+	}
+	@media (max-width: 1365px){
+		&.onProgress {
+			border-width: 5px;
 		}
 	}
 }

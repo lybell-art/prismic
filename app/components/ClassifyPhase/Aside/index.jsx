@@ -23,11 +23,11 @@ function Aside()
 			<DirectoryButton onClick={openViewer} />
 		</div>
 		<div className={style.asideMobile}>
-			<div className={style.menuButton} onClick={()=>setMenuOpen(true)}>
-				<div className={style.hamburgerIcon}/>
+			<div className={style.menuButton} onClick={()=>setMenuOpen(state=>!state)}>
+				<div className={`${style.hamburgerIcon} ${menuOpen ? style.active : ""}`}/>
 			</div>
-			<div className={`${style.mobileMenu} ${menuOpen ? style.opened : ""}`}>
-				<div className="dimmed" onClick={()=>setMenuOpen(false)} />
+			<div className={`${style.mobileMenu} ${menuOpen ? "" : style.hidden}`}>
+				<div className="backdrop" onClick={()=>setMenuOpen(false)} />
 				<AIButton onClick={null} />
 				<DirectoryButton onClick={openViewer} />
 			</div>
