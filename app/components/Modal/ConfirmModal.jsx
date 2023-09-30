@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useBodyScrollLock} from "@/hooks/useBodyScrollLock.js";
+import keyListener from "@/store/keyListener.js";
 import style from "./style.module.scss";
 
 function useConfirmModal(func)
@@ -9,6 +10,7 @@ function useConfirmModal(func)
 	function controlModal(open)
 	{
 		setOpened(open);
+		keyListener.setLock(open ? 0 : -1);
 		if(open) lockScroll();
 		else openScroll();
 	}

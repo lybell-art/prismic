@@ -1,6 +1,7 @@
 import {useEffect, useCallback} from "react";
 import useDirectoryStore from "@/store/directoryStore.js";
 import {convertKey} from "@/businessLogic/categoryLogic.js";
+import keyListener from "@/store/keyListener.js";
 import style from "./style.module.scss";
 
 function ClassifyButton({keyCommand, name})
@@ -19,8 +20,8 @@ function ClassifyButton({keyCommand, name})
 			if(keyCommand !== key) return;
 			select();
 		}
-		document.addEventListener("keyup", onKey);
-		return ()=>document.removeEventListener("keyup", onKey);
+		keyListener.addEventListener("keyup", onKey);
+		return ()=>keyListener.removeEventListener("keyup", onKey);
 	}, [keyCommand, select] );
 	return <div className={`${style.button} ${style.classifyButton}`} onClick={select}>
 		<div className={style.key}>{convertKey(keyCommand)}</div>

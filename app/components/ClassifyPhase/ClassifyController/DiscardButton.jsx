@@ -1,6 +1,7 @@
 import {useEffect, useCallback} from "react";
 import useConfirmModal from "@/components/Modal/ConfirmModal.jsx";
 import useDirectoryStore from "@/store/directoryStore.js";
+import keyListener from "@/store/keyListener.js";
 import useHold from "@/hooks/useHold.js";
 import style from "./style.module.scss";
 
@@ -26,11 +27,11 @@ function DiscardButton()
 			if(key !== "Delete" && key !== "Backspace") return;
 			endHold();
 		}
-		document.addEventListener("keydown", onKeyDown);
-		document.addEventListener("keyup", onKeyUp);
+		keyListener.addEventListener("keydown", onKeyDown);
+		keyListener.addEventListener("keyup", onKeyUp);
 		return ()=>{
-			document.removeEventListener("keydown", onKeyDown);
-			document.removeEventListener("keyup", onKeyUp);
+			keyListener.removeEventListener("keydown", onKeyDown);
+			keyListener.removeEventListener("keyup", onKeyUp);
 		}
 	}, [startHold, endHold] );
 
