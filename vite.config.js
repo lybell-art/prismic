@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [react(), svgr()],
   resolve: {
     alias: [
-      { find: "@", replacement: resolve(__dirname, "app") }
+      { find: "@", replacement: resolve(__dirname, "app") },
+      { find: "zip-js", replacement: "@zip.js/zip.js" }
     ]
   },
   build: {
