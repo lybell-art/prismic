@@ -98,7 +98,7 @@ function VirtualGroupList({ data: rawData,
 
 	return <div className={className} ref={containerRef} onScroll={debounce(e=>setScrollHeight(e.target.scrollTop))}>
 		{listItemData.map( props=><Group
-			setFold={(newState)=>setEachFoldState(props.name, newState)} 
+			setFold={()=>toggleFoldState(props.name)} 
 			key={props.name}
 			column={column}
 			itemGap={itemGap}

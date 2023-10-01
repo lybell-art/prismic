@@ -1,29 +1,18 @@
 import {useState, useEffect} from "react";
-import {useBodyScrollLock} from "@/hooks/useBodyScrollLock.js";
-import keyListener from "@/store/keyListener.js";
+import useModalEffect from "@/hooks/useModalEffect.js";
 import style from "./style.module.scss";
 
 function useConfirmModal(func)
 {
 	const [opened, setOpened] = useState(false);
-	const [lockScroll, openScroll] = useBodyScrollLock();
-	function controlModal(open)
-	{
-		setOpened(open);
-		keyListener.setLock(open ? 0 : -1);
-		if(open) lockScroll();
-		else openScroll();
-	}
-	const closeModal = ()=>controlModal(false);
+	useModalEffect(opened);
 
+	const closeModal = ()=>setOpened(false);
 	function doConfirm()
 	{
 		func();
 		setOpened(false);
-		openScroll();
 	}
-
-	useEffect( ()=>()=>keyListener.setLock(-1), [] );
 
 	function render({promptMessage, confirmMessage})
 	{
