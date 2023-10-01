@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DirectoryButton from "./DirectoryButton.jsx";
 import AIButton from "./AIButton.jsx";
+import DirectoryViewer from "../DirectoryViewer";
+import useModalEffect from "@/hooks/useModalEffect.js";
 import style from "./style.module.scss";
-
-function DirectoryViewer({isOpened, close})
-{
-	return <div className="directoryViewer"></div>
-}
 
 function Aside()
 {
 	const [viewerOpen, setViewerOpen] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
+	useModalEffect(viewerOpen || menuOpen);
+
 	const openViewer = ()=>{
 		setViewerOpen(true);
 		setMenuOpen(false);
