@@ -27,7 +27,7 @@ function useConfirmModal(func)
 			</div>
 		</div>;
 	}
-	return [doConfirm, render];
+	return [()=>setOpened(true), render];
 }
 
 export default useConfirmModal;
