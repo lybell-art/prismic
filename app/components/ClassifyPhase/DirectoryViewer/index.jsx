@@ -1,6 +1,6 @@
 import DirectoryList from "./DirectoryList";
+import AddButton from "./AddButton";
 import style from "./style.module.scss";
-import AddIcon from "@/assets/add.svg?react";
 
 function DirectoryViewer({isOpened, close})
 {
@@ -8,10 +8,7 @@ function DirectoryViewer({isOpened, close})
 		<div className="backdrop" onClick={close} />
 		<div className={style.viewerContainer}>
 			{isOpened && <DirectoryList />}
-			<div className={style.addButton}>
-				<AddIcon className={style.addIcon} />
-				<p>Add Photo</p>
-			</div>
+			<AddButton />
 		</div>
 	</div>;
 }
