@@ -27,7 +27,7 @@ function useConfirmModal(func)
 			</div>
 		</div>;
 	}
-	return [controlModal, render];
+	return [doConfirm, render];
 }
 
 export default useConfirmModal;
