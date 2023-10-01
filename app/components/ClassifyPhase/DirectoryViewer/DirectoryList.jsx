@@ -18,7 +18,9 @@ function GroupHeader({name, count, isOpened})
 
 function GroupItem({content, style:innerStyle})
 {
-	return <img src={content} className={style.item} style={innerStyle} />;
+	const setCurrentFile = useDirectoryStore(store=>store.setCurrentFile);
+	return <img src={content} className={style.item} style={innerStyle} 
+		onClick={()=>setCurrentFile(content)}/>;
 }
 
 function useDirectoryData()

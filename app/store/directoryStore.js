@@ -42,20 +42,6 @@ const directoryStore = {
 		return {unsorted, currentFile: this.currentFile ?? firstKey};
 	},
 	/**
-	 * 지정된 디렉토리에서 파일을 제거한다.
-	 * store 외부에서 사용하지 말 것! discard를 대신 사용한다.
-	 */
-	_removeFile(url, directory=null)
-	{
-		if(directory === null)
-		{
-			directory = findDirectory(url, this);
-			if(directory === null) return null;
-		}
-		if(directory === UNSORTED) return {unsorted: this.unsorted.delete(url)};
-		return {sorted: this.sorted.update(directory, (dir)=>dir.delete(url))};
-	},
-	/**
 	 * 지정된 파일을 현재 파일로 지정한다. 만약 없으면 unsorted의 첫 파일이 현재 파일이 된다.
 	 */
 	setCurrentFile(file=null)
@@ -69,19 +55,28 @@ const directoryStore = {
 	 */
 	classify(newDirectory, oldDirectory=null)
 	{
+		// 파일의 디렉토리를 찾음.
 		const file = this.currentFile;
 		if(file === null) throw new Error("current file is not defined!");
 		if(oldDirectory === null) oldDirectory = findDirectory(this.currentFile, this);
 		if(oldDirectory === null) throw new Error("unknown directory!");
 		if(oldDirectory === newDirectory) return null;
-
+		// 메타데이터 변경 및 실제 데이터 추출
 		const data = findFileFromDirectory(file, oldDirectory, this);
-		this._removeFile(file, oldDirectory);
 		this._metadata.move(file, newDirectory);
-		return {sorted: this.sorted.update(newDirectory, (dir)=>{
+
+		// 이전 값에서 현재 파일 제거
+		let {unsorted, sorted} = this;
+		if(oldDirectory === UNSORTED) unsorted = this.unsorted.delete(file);
+		else sorted = sorted.update(oldDirectory, dir=>dir.delete(file));
+
+		// 새 디렉토리에 현재 파일 추가
+		sorted = sorted.update(newDirectory, (dir)=>{
 			if(dir === undefined) dir = MapI();
 			return dir.set(file, data);
-		})};
+		});
+
+		return {unsorted, sorted};
 	},
 	/**
 	 * @mutate-metadata
@@ -89,12 +84,14 @@ const directoryStore = {
 	 */
 	discard()
 	{
-		const directory = findDirectory(this.currentFile, this);
-		const data = findFileFromDirectory(this.currentFile, directory, this);
+		const url = this.currentFile;
+		const directory = findDirectory(url, this);
+		const data = findFileFromDirectory(url, directory, this);
 		this._metadata.delete(data);
-		URL.revokeObjectURL(this.currentFile);
-		this._removeFile(this.currentFile, directory);
-		return {};
+		URL.revokeObjectURL(url);
+
+		if(directory === UNSORTED) return {unsorted: this.unsorted.delete(url)};
+		return {sorted: this.sorted.update(directory, (dir)=>dir.delete(url))};
 	},
 	/**
 	 * @mutate-metadata
