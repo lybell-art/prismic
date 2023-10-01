@@ -41,6 +41,9 @@
 .main-button:hover {
 	transform: scale(1.02);
 }
+.main-button:active {
+	transform: scale(1);
+}
 
 .icon-title {
 	width: 30px;

@@ -1,0 +1,36 @@
+@use "@/styles/colors.scss";
+@use "@/styles/mixins.scss";
+
+.buttonContainer {
+	position: absolute;
+	display: flex;
+    --width: 800px;
+    width: var(--width);
+    bottom: 40px;
+    margin: 0 calc(50vw - var(--width) / 2);
+    justify-content: space-evenly;
+    gap: 20px;
+    @media (max-width: 1000px){
+		--width: 80%;
+	}
+}
+
+.button {
+	@include mixins.center;
+	width: 50%;
+	max-width: 250px;
+	height: 50px;
+	border-radius: 10px;
+	background: colors.$maingrad;
+	font-family: "Prismic Main Font", sans-serif;
+	font-weight: bold;
+	color: white;
+	cursor: pointer;
+	transition: transform 0.3s;
+	&:hover {
+		transform: scale(1.05);
+	}
+	&:active {
+		transform: scale(1);
+	}
+}

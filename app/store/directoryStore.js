@@ -122,7 +122,7 @@ async function injectDummyData()
 	useDirectoryStore.getState().addFiles(results);
 }
 
-await injectDummyData();
+//await injectDummyData();
 
 export default useDirectoryStore;
 //export default createZustandStore(directoryStore);
