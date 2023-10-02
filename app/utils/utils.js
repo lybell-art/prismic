@@ -41,4 +41,19 @@ function clamp(value, min, max)
 	return value;
 }
 
-export { getTextWidth, getUniqueName, debounce, clamp };
+function wrapPromise(promise)
+{
+	let state = "pending";
+	let result = null;
+	promise.then( res=>{state = "complete"; result=res;} )
+		.catch( err=>{state = "error"; result=err;} )
+	return ()=>{
+		switch(state) {
+		case "complete": return result;
+		case "error": throw result;
+		default: throw promise;
+		}
+	}
+}
+
+export { getTextWidth, getUniqueName, debounce, clamp, wrapPromise };

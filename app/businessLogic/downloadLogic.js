@@ -1,5 +1,6 @@
-import * as zip from "zip-js";
+import { ZipWriter, BlobWriter, BlobReader }from "zip-js";
 import { getExtension } from "mime";
+import { wrapPromise } from "@/utils/utils.js";
 
 function mapFilesToDir(directories)
 {
@@ -17,24 +18,82 @@ function mapFilesToDir(directories)
 	return map;
 }
 
-/**
- * @param data IMap([directory]:IMap([url string]:Blob)) 
- */
-async function compress(files)
+const ABORT_ERROR = new Error("user aborted");
+
+class Compressor
 {
-	const blobWriter = new zip.BlobWriter("application/zip");
-	const writer = new zip.ZipWriter(blobWriter);
+	constructor(option={})
+	{
+		this.#setNewWriter();
+		this.option = {...option};
+		this.onProgress = new Set();
+	}
+	#setNewWriter()
+	{
+		this.aborter = new AbortController();
+		const signal = this.aborter.signal;
+		this.writer = new ZipWriter(new BlobWriter("application/zip"), {signal});
+	}
+	run(files)
+	{
+		if(this.writer === null) this.#setNewWriter();
+		let progress = 0;
+		let maxProgress = files.size;
+		const addFile = async ([dir, file], i)=>{
+			const option = {
+				...this.option,
+				onend: (current, max)=>{
+					progress++;
+					this.onProgress.forEach( func=>func(progress, maxProgress) );
+					this.option.onend ?? this.option.onend(current, max);
+				}
+			};
+			await this.writer.add(dir, new BlobReader(file), option);
+		}
 
-	// use a TextReader to read the String to add
-	await writer.add("dir/filename.txt", new zip.TextReader("test!"));
-
-	// close the ZipReader
-	await writer.close();
-
-	// get the zip file as a Blob
-	const blob = await blobWriter.getData();
-
-	return blob;
+		return Promise.all( [...files].map( addFile ) );
+	}
+	async extract()
+	{
+		const blob = await this.writer.close();
+		this.writer = null;
+		return blob;
+	}
+	addEventListener(func)
+	{
+		this.onProgress.add(func);
+	}
+	removeEventListener(func)
+	{
+		this.onProgress.delete(func);
+	}
+	abort()
+	{
+		if(this.writer === null) return;
+		this.aborter.abort(ABORT_ERROR);
+	}
 }
 
-export {mapFilesToDir, compress};
+function compress(sorted)
+{
+	const compressor = new Compressor();
+	const resultPromise = compressor.run(mapFilesToDir(sorted))
+		.then(()=>compressor.extract())
+		.catch(err=>{
+			if(err !== ABORT_ERROR) throw err;
+		})
+
+	return {
+		read: wrapPromise(resultPromise),
+		watchProgress(callback) {
+			compressor.addEventListener(callback);
+		},
+		abort() {
+			compressor.abort();
+		}
+	}
+}
+
+
+
+export {mapFilesToDir, Compressor, compress};
