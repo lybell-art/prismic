@@ -71,27 +71,39 @@ class Compressor
 	{
 		if(this.writer === null) return;
 		this.aborter.abort(ABORT_ERROR);
+		this.writer = null;
 	}
 }
 
 function compress(sorted)
 {
-	const compressor = new Compressor();
-	const resultPromise = compressor.run(mapFilesToDir(sorted))
-		.then(()=>compressor.extract())
-		.catch(err=>{
-			if(err !== ABORT_ERROR) throw err;
-		})
+	let cache = null;
+	return (()=>{
+		if(cache) return cache;
 
-	return {
-		read: wrapPromise(resultPromise),
-		watchProgress(callback) {
-			compressor.addEventListener(callback);
-		},
-		abort() {
-			compressor.abort();
+		const compressor = new Compressor();
+		const promise = compressor.run(mapFilesToDir(sorted))
+			.then(()=>compressor.extract())
+			.catch(err=>{
+				if(err !== ABORT_ERROR) throw err;
+			});
+
+		cache = {
+			read: wrapPromise(promise),
+			watchProgress(callback) {
+				compressor.addEventListener(callback);
+			},
+			unwatchProgress(callback) {
+				compressor.removeEventListener(callback);
+			},
+			abort() {
+				compressor.abort();
+			}
 		}
-	}
+		setTimeout(()=>cache = null, 50);
+
+		return cache;
+	})();
 }
 
 

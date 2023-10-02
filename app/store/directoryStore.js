@@ -34,6 +34,7 @@ const directoryStore = {
 				if(!file.type.startsWith("image")) continue;
 				if(this._metadata.hasFile(file)) continue;
 				const key = URL.createObjectURL(file);
+				console.log(key);
 				map.set(key, file);
 				this._metadata.add(key, file, UNSORTED);
 				if(firstKey === null) firstKey = key;
@@ -100,10 +101,14 @@ const directoryStore = {
 	reset()
 	{
 		this._metadata.clear();
-		for(let url of this.unsorted) URL.revokeObjectURL(url);
-		for(let directory of this.sorted)
+		for(let [url] of this.unsorted) {
+			URL.revokeObjectURL(url);
+		}
+		for(let [, directory] of this.sorted)
 		{
-			for(let url of directory) URL.revokeObjectURL(url);
+			for(let [url] of directory) {
+				URL.revokeObjectURL(url);
+			}
 		}
 		return {unsorted: MapI(), sorted: MapI()};
 	}

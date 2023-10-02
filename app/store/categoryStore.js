@@ -51,6 +51,10 @@ const categoryStore = {
 		const {name, hash} = newCategory[index];
 		newCategory[index] = {name, key:newKey, hash};
 		return {category: newCategory};
+	},
+	reset()
+	{
+		return {category: []};
 	}
 }
 
