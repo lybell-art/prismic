@@ -34,7 +34,6 @@ const directoryStore = {
 				if(!file.type.startsWith("image")) continue;
 				if(this._metadata.hasFile(file)) continue;
 				const key = URL.createObjectURL(file);
-				console.log(key);
 				map.set(key, file);
 				this._metadata.add(key, file, UNSORTED);
 				if(firstKey === null) firstKey = key;

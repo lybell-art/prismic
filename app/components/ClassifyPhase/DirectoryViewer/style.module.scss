@@ -129,7 +129,8 @@
 .item {
 	width: 70px;
 	height: 70px;
-	background-color: #24adaf;
+	object-fit: cover;
+	background-color: colors.$inactive;
 	border-radius:5px;
 	transition: transform 0.3s;
 	&:hover {
