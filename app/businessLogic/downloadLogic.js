@@ -34,7 +34,7 @@ class Compressor
 		const signal = this.aborter.signal;
 		this.writer = new ZipWriter(new BlobWriter("application/zip"), {signal});
 	}
-	run(files)
+	async run(files)
 	{
 		if(this.writer === null) this.#setNewWriter();
 		let progress = 0;
@@ -51,6 +51,7 @@ class Compressor
 			await this.writer.add(dir, new BlobReader(file), option);
 		}
 
+		if(maxProgress === 0) throw new Error("No file included!");
 		return Promise.all( [...files].map( addFile ) );
 	}
 	async extract()
