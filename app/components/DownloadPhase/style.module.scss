@@ -24,6 +24,7 @@
 	background: colors.$maingrad;
 	font-family: "Prismic Main Font", sans-serif;
 	font-weight: bold;
+	text-align: center;
 	color: white;
 	cursor: pointer;
 	transition: transform 0.3s;
@@ -33,4 +34,15 @@
 	&:active {
 		transform: scale(1);
 	}
+	@media (max-width: 360px){
+		font-size: 0.8em;
+	}
+}
+
+.progress {
+	--w: 250px;
+	max-width: 90%;
+	height: 10px;
+	--color: repeating-linear-gradient(135deg,#fff3 0 10px,#fff0 0 20px), 
+		#{colors.$maingrad} 0/var(--w);
 }

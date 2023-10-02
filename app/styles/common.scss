@@ -18,6 +18,34 @@ main {
 	width: 100%;
 }
 
+progress[value] {
+	// --w: 200px;
+	// --color: linear-gradient(90deg,#ff6161,#1ecd1e);
+	// --background: colors.$inactive2;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: none;
+	width: var(--w, revert);
+	border-radius: 10em;
+	background: var(--background, colors.$inactive2);
+	overflow: hidden;
+}
+progress[value]::-webkit-progress-bar {
+	border-radius: 10em;
+	background: var(--background, colors.$inactive2);
+	overflow: hidden;
+}
+progress[value]::-webkit-progress-value {
+	border-radius: 0 10em 10em 0;
+	background: var(--color, #AD97E5);
+}
+progress[value]::-moz-progress-bar {
+	border-radius: 0 10em 10em 0;
+	background: var(--color, #AD97E5);
+}
+
 .icon-svg {
 	width: 50px;
 	height: 50px;

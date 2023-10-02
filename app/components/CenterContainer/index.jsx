@@ -1,8 +1,8 @@
 import style from "./style.module.scss";
 
-function CenterContainer({className, children, ...props})
+function CenterContainer({className, inactive, children, ...props})
 {
-	return <div className={`${style.container} ${className ?? ""}`} {...props}>
+	return <div className={`${style.container} ${inactive ? style.inactive : ""} ${className ?? ""}`} {...props}>
 		{children}
 	</div>;
 }

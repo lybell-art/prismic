@@ -5,6 +5,8 @@ import useDirectoryStore from "@/store/directoryStore.js";
 import {compress} from "@/businessLogic/downloadLogic.js";
 import style from "./style.module.scss";
 import DownloadImg from "@/assets/download.svg?react"; 
+import LoadingImg from "@/assets/zip.svg?react"; 
+import ErrorImg from "@/assets/error.svg?react"; 
 
 function useCompress(sorted)
 {
@@ -18,11 +20,21 @@ function useCompress(sorted)
 	return [read, progress];
 }
 
-function LoadingDownload({progress})
+function ZipError()
 {
-	return <CenterContainer>
-		<p className="caption-big">Compress : {progress}</p>
-	</CenterContainer>
+	return <CenterContainer inactive={true}>
+		<ErrorImg className="icon-svg" />
+		<p className="caption-big">Compress Error</p>
+	</CenterContainer>;
+}
+
+function Loading({progress})
+{
+	return <CenterContainer inactive={true}>
+		<LoadingImg className="icon-svg" />
+		<p className="caption-big">Compressing... : {progress*100}%</p>
+		<progress className={style.progress} max="1" value={progress}>70%</progress>
+	</CenterContainer>;
 }
 
 function DownloadContainer({resource})
@@ -47,15 +59,16 @@ function DownloadContainer({resource})
 
 function DownloadPhase()
 {
-	const sorted = useDirectoryStore( store=>store.sorted );
-	const [read, progress] = useCompress(sorted);
+	// const sorted = useDirectoryStore( store=>store.sorted );
+	// const [read, progress] = useCompress(sorted);
 
 	return <main>
-		<ErrorBoundary fallback={<div>ERROR!</div>}>
-			<Suspense fallback={<LoadingDownload progress={progress} />}>
+		<ZipError />
+{/*		<ErrorBoundary fallback={<ZipError />}>
+			<Suspense fallback={<Loading progress={progress} />}>
 				<DownloadContainer resource={read} />
 			</Suspense>
-		</ErrorBoundary>
+		</ErrorBoundary>*/}
 		<div className={style.buttonContainer}>
 			<div className={style.button}>Classify another pictures</div>
 			<a href="../" className={style.button}>Return To Title</a>
