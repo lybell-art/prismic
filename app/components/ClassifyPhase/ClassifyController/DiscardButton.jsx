@@ -14,7 +14,7 @@ function DiscardButton()
 		setCurrentFile();
 	}, [_discard, setCurrentFile]);
 	const [setOpened, ConfirmModal] = useConfirmModal(discard);
-	const [startHold, endHold, isHolding] = useHold(setOpened, discard);
+	const [startHold, endHold, isHolding] = useHold(setOpened, discard, 0.5);
 
 	useEffect( ()=>{
 		function onKeyDown({key})
