@@ -34,7 +34,7 @@ function Loading({progress})
 {
 	return <CenterContainer inactive={true}>
 		<LoadingImg className="icon-svg" />
-		<p className="caption-big">Compressing... : {progress*100}%</p>
+		<p className="caption-big">Compressing... : {(progress*100).toFixed(2)}%</p>
 		<progress className={style.progress} max="1" value={progress}>70%</progress>
 	</CenterContainer>;
 }
