@@ -52,6 +52,7 @@ function DownloadContainer({resource})
 		virtualLink.current.download = "result.zip";
 		virtualLink.current.click();
 		URL.revokeObjectURL(url);
+		console.log(url);
 	}
 
 	return <CenterContainer onClick={download}>

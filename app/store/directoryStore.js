@@ -114,20 +114,4 @@ const directoryStore = {
 	}
 }
 
-const useDirectoryStore = createZustandStore(directoryStore);
-async function injectDummyData()
-{
-	let fetcher = [];
-	for(let i=0; i<4; i++)
-	{
-		const request = fetch("https://picsum.photos/300").then(e=>e.blob(e));
-		fetcher.push(request);
-	}
-	let results = await Promise.all(fetcher);
-	useDirectoryStore.getState().addFiles(results);
-}
-
-await injectDummyData();
-
-export default useDirectoryStore;
-//export default createZustandStore(directoryStore);
+export default createZustandStore(directoryStore);

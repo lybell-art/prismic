@@ -5,7 +5,6 @@ import CategoryPhase from "./components/CategoryPhase";
 import ClassifyPhase from "./components/ClassifyPhase";
 import DownloadPhase from "./components/DownloadPhase";
 import PhaseContext from "./store/phaseContext.js";
-import Test from "./components/TestComponent";
 import { PHASE } from "./utils/constants.js";
 import "./styles/common.scss";
 
@@ -17,7 +16,6 @@ function Body({phase})
 	case PHASE.CATEGORY: return <CategoryPhase />;
 	case PHASE.CLASSIFY: return <ClassifyPhase />;
 	case PHASE.DOWNLOAD: return <DownloadPhase />;
-	case "test": return <Test />;
 	}
 	return null;
 }
@@ -25,7 +23,7 @@ function Body({phase})
 
 function App()
 {
-	const [phase, setPhase] = useState(PHASE.CLASSIFY);
+	const [phase, setPhase] = useState(PHASE.UPLOAD);
 	return <PhaseContext.Provider value={setPhase}>
 		<Header phase={phase} />
 		<Body phase={phase} />

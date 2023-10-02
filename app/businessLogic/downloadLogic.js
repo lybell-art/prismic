@@ -75,35 +75,34 @@ class Compressor
 	}
 }
 
+let cache = null;
+
 function compress(sorted)
 {
-	let cache = null;
-	return (()=>{
-		if(cache) return cache;
+	if(cache) return cache;
 
-		const compressor = new Compressor();
-		const promise = compressor.run(mapFilesToDir(sorted))
-			.then(()=>compressor.extract())
-			.catch(err=>{
-				if(err !== ABORT_ERROR) throw err;
-			});
+	const compressor = new Compressor();
+	const promise = compressor.run(mapFilesToDir(sorted))
+		.then(()=>compressor.extract())
+		.catch(err=>{
+			if(err !== ABORT_ERROR) throw err;
+		});
 
-		cache = {
-			read: wrapPromise(promise),
-			watchProgress(callback) {
-				compressor.addEventListener(callback);
-			},
-			unwatchProgress(callback) {
-				compressor.removeEventListener(callback);
-			},
-			abort() {
-				compressor.abort();
-			}
+	cache = {
+		read: wrapPromise(promise),
+		watchProgress(callback) {
+			compressor.addEventListener(callback);
+		},
+		unwatchProgress(callback) {
+			compressor.removeEventListener(callback);
+		},
+		abort() {
+			compressor.abort();
 		}
-		setTimeout(()=>cache = null, 50);
+	}
+	setTimeout(()=>cache = null, 50);
 
-		return cache;
-	})();
+	return cache;
 }
 
 
