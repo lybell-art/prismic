@@ -9,3 +9,4 @@ export const HEADERS = Object.freeze(["Upload Images", "Make Category", "Classif
 
 export const MAX_CATEGORY_NUM = 9;
 export const MAX_TRAINABLE_ITEMS = 20;
+export const PREVIEW_PIC_SIZE = 70;

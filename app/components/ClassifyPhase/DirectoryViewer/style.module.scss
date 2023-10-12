@@ -126,18 +126,6 @@
 	}
 }
 
-.item {
-	width: 70px;
-	height: 70px;
-	object-fit: cover;
-	background-color: colors.$inactive;
-	border-radius:5px;
-	transition: transform 0.3s;
-	&:hover {
-		transform: scale(1.05);
-	}
-}
-
 .addButton {
 	@include mixins.center;
 	position: absolute;

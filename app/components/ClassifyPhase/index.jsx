@@ -4,6 +4,7 @@ import ClassifyController from "./ClassifyController";
 import Aside from "./Aside";
 import useDirectoryStore from "@/store/directoryStore.js";
 import PhaseContext from "@/store/phaseContext.js";
+import CacheContext, {ImageCache} from "@/store/imageCache.js";
 import {isDone as isDoneChecker} from "@/businessLogic/directoryLogic.js";
 import {PHASE} from "@/utils/constants.js";
 import style from "./style.module.scss";
@@ -30,7 +31,7 @@ function ClassifyPhase()
 
 	return <>
 		<main><ClassifyContainer /></main>
-		<Aside />
+		<CacheContext.Provider value={new ImageCache()}><Aside /></CacheContext.Provider>
 	</>;
 }
 
