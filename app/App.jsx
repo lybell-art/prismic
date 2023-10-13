@@ -4,6 +4,7 @@ import UploadPhase from "./components/UploadPhase";
 import CategoryPhase from "./components/CategoryPhase";
 import ClassifyPhase from "./components/ClassifyPhase";
 import DownloadPhase from "./components/DownloadPhase";
+import CacheContext, {ImageCache} from "./store/imageCache.js";
 import PhaseContext from "./store/phaseContext.js";
 import { PHASE } from "./utils/constants.js";
 import "./styles/common.scss";
@@ -26,7 +27,9 @@ function App()
 	const [phase, setPhase] = useState(PHASE.UPLOAD);
 	return <PhaseContext.Provider value={setPhase}>
 		<Header phase={phase} />
-		<Body phase={phase} />
+		<CacheContext.Provider value={new ImageCache()}>
+			<Body phase={phase} />
+		</CacheContext.Provider>
 	</PhaseContext.Provider>
 }
 
