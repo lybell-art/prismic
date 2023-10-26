@@ -19,29 +19,16 @@ $buttonHeight: 36px;
 }
 
 .button {
+	@include mixins.button(1.05);
 	position: relative;
 	height: $buttonHeight;
 	box-sizing: border-box;
 	border-radius: 5px;
 	overflow: hidden;
-	cursor: pointer;
-	transition: transform 0.2s;
-	&:hover {
-		transform: scale(1.05);
-	}
-	&:active {
-		transform: scale(1);
-	}
 	@media (max-width: 767px){
 		width: 100%;
 		height: 50px;
 		border-radius: 0px;
-		&:hover {
-			transform: none;
-		}
-		&:active {
-			transform: none;
-		}
 	}
 }
 

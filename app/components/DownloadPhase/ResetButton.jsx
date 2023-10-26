@@ -2,7 +2,7 @@ import { useContext } from "react";
 import useDirectoryStore from "@/store/directoryStore.js";
 import useCategoryStore from "@/store/categoryStore.js";
 import PhaseContext from "@/store/phaseContext.js";
-import CacheContext from "@/store/phaseContext.js";
+import CacheContext from "@/store/imageCache.js";
 import {PHASE} from "@/utils/constants.js";
 import style from "./style.module.scss";
 

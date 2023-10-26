@@ -9,10 +9,9 @@
 
 @mixin float-button {
 	@include mixins.center;
+	@include mixins.button;
 	width: 70px;
 	height: 70px;
-	cursor: pointer;
-	transition: transform 0.2s;
 	z-index: 10;
 	.caption {
 		position: absolute;
@@ -27,14 +26,6 @@
 		pointer-events: none;
 		.caption {
 			color: colors.$inactive;
-		}
-	}
-	&:hover {
-		transform: scale(1.1);
-		@media (max-width: 767px){
-			&:hover {
-				transform: none;
-			}
 		}
 	}
 }

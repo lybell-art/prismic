@@ -42,6 +42,14 @@ const directoryStore = {
 		return {unsorted, currentFile: this.currentFile ?? firstKey};
 	},
 	/**
+	 * 처음으로 현재 파일을 지정시킨다.
+	 */
+	initCurrentFile()
+	{
+		if(this.currentFile !== null) return null;
+		return {currentFile: (this.unsorted.keySeq().first() ?? null)};
+	},
+	/**
 	 * 지정된 파일을 현재 파일로 지정한다. 만약 없으면 unsorted의 첫 파일이 현재 파일이 된다.
 	 */
 	setCurrentFile(file=null)
