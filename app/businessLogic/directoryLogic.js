@@ -1,23 +1,15 @@
-import {MAX_TRAINABLE_ITEMS} from "@/utils/constants.js";
+import {UNSORTED, TRASH} from "@/store/categoryDirectoryStore.js";
 
-function getDoneAmount(store)
+export function getCategoryString(key)
 {
-	return store._metadata.size - store.unsorted.size + 1;
+	if(key === UNSORTED) return "@@unsorted@@";
+	if(key === TRASH) return "@@trash@@";
+	return key;
 }
 
-function getTotalAmount(store)
+export function convertStringToNormalLabel(name)
 {
-	return store._metadata.size;
+	if(name === "@@unsorted@@") return "Unclassified";
+	if(name === "@@trash@@") return "Trash";
+	return name;
 }
-
-function isDone(store)
-{
-	return store.unsorted.size === 0;
-}
-
-function getTrainableAmount(store)
-{
-	return store.sorted.reduce( (sum, dir)=>sum+Math.min(dir.size, MAX_TRAINABLE_ITEMS), 0 );
-}
-
-export {getDoneAmount, getTotalAmount, isDone, getTrainableAmount};

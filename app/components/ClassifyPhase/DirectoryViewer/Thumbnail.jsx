@@ -1,6 +1,6 @@
 import { useContext, Suspense } from "react";
 import ErrorBoundary from "@/components/common/ErrorBoundary.jsx";
-import useDirectoryStore from "@/store/directoryStore.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import CacheContext from "@/store/imageCache.js";
 import {PREVIEW_PIC_SIZE} from "@/utils/constants.js";
 import style from "./Thumbnail.module.scss";

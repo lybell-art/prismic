@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import useDirectoryStore from "@/store/directoryStore.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver.js";
 import useAnimationControl from "@/hooks/useAnimationControl.js";
 import style from "./style.module.scss";

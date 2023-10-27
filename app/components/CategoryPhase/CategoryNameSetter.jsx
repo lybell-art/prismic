@@ -1,12 +1,12 @@
 import { useState } from "react";
-import useCategoryStore from "@/store/categoryStore.js";
+import useCategoryStore from "@/store/categoryDirectoryStore.js";
 import {getUniqueName} from "@/utils/utils.js";
 import style from "./style.module.scss";
 
 function CategoryNameSetter({index})
 {
 	const [name, setName] = useState( useCategoryStore.getState().category[index].name );
-	const changeLabel = useCategoryStore( store=>store.changeLabel );
+	const changeLabel = useCategoryStore( store=>store.changeCategoryLabel );
 
 	function onChange(e)
 	{

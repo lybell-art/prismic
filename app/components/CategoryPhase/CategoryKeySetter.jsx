@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import useCategoryStore from "@/store/categoryStore.js";
+import useCategoryStore from "@/store/categoryDirectoryStore.js";
 import {validateKey, convertKey} from "@/businessLogic/categoryLogic.js";
 import {getTextWidth} from "@/utils/utils.js";
 import style from "./style.module.scss";
@@ -12,7 +12,7 @@ const CONTAINER_WIDTH = 50;
 function CategoryKeySetter({index})
 {
 	const keyCode = useCategoryStore( store=>store.category[index].key );
-	const changeHotkey = useCategoryStore( store=>store.changeHotkey );
+	const changeHotkey = useCategoryStore( store=>store.changeCategoryHotkey );
 	const [keyState, setKeyState] = useState(IDLE);
 	const [keyBuffer, setKeyBuffer] = useState(convertKey(keyCode));
 	const textScale = useMemo(()=>{

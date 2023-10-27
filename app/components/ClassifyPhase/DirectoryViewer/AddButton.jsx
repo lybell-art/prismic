@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import useDirectoryStore from "@/store/directoryStore.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import style from "./style.module.scss";
 import AddIcon from "@/assets/add.svg?react";
 

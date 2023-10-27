@@ -1,6 +1,6 @@
 import {useEffect, useCallback} from "react";
 import useConfirmModal from "@/components/Modal/ConfirmModal.jsx";
-import useDirectoryStore from "@/store/directoryStore.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import keyListener from "@/store/keyListener.js";
 import useHold from "@/hooks/useHold.js";
 import style from "./style.module.scss";

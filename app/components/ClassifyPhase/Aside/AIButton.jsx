@@ -1,14 +1,11 @@
-import useCategoryStore from "@/store/categoryStore.js";
-import useDirectoryStore from "@/store/directoryStore.js";
-import {getTrainableAmount} from "@/businessLogic/directoryLogic.js";
-import {getTrainableMaxAmount} from "@/businessLogic/categoryLogic.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import style from "./style.module.scss";
 import AIIcon from "@/assets/robot.svg?react";
 
 export default function AIButton({onClick})
 {
-	const progress = useDirectoryStore(getTrainableAmount);
-	const max = useCategoryStore(getTrainableMaxAmount);
+	const progress = useDirectoryStore( store=>store.trainableAmount() );
+	const max = useDirectoryStore( store=>store.trainableMaxAmount() );
 	const percent = max === 0 ? 0 : progress/max;
 
 	return <div 

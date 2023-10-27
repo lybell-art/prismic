@@ -41,6 +41,19 @@ function clamp(value, min, max)
 	return value;
 }
 
+function randInt(range)
+{
+	return Math.floor(Math.random()*range);
+}
+
+function makeUUID()
+{
+	const rawStr = Array.from({length:32}, ()=>randInt(16).toString(16) ).join('');
+	const checksum = (randInt(4)+8).toString(16);
+
+	return `${rawStr.slice(0,8)}-${rawStr.slice(8,12)}-4${rawStr.slice(13,16)}-${checksum}${rawStr.slice(17,20)}-${rawStr.slice(20)}`;
+}
+
 function wrapPromise(promise)
 {
 	let state = "pending";
@@ -56,4 +69,4 @@ function wrapPromise(promise)
 	}
 }
 
-export { getTextWidth, getUniqueName, debounce, clamp, wrapPromise };
+export { getTextWidth, getUniqueName, debounce, clamp, wrapPromise, makeUUID };

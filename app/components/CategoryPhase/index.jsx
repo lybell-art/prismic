@@ -1,14 +1,14 @@
 import NextButton from "@/components/NextButton";
 import CategoryKeySetter from "./CategoryKeySetter.jsx";
 import CategoryNameSetter from "./CategoryNameSetter.jsx";
-import useCategoryStore from "@/store/categoryStore.js";
+import useCategoryStore from "@/store/categoryDirectoryStore.js";
 import {MAX_CATEGORY_NUM} from "@/utils/constants.js";
 import style from "./style.module.scss";
 import AddIcon from "@/assets/add.svg?react";
 
 function CategoryItem({index})
 {
-	const remove = useCategoryStore( store=>store.remove );
+	const remove = useCategoryStore( store=>store.removeCategory );
 	
 	return <div className={style.item}>
 		<CategoryKeySetter index={index} />
@@ -22,7 +22,7 @@ function CategoryItem({index})
 function CategoryPhase()
 {
 	const category = useCategoryStore( store=>store.category );
-	const add = useCategoryStore( store=>store.add );
+	const add = useCategoryStore( store=>store.addCategory );
 	function addClass()
 	{
 		if(category.length >= MAX_CATEGORY_NUM) return;

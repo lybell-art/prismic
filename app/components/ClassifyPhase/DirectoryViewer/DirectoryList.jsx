@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import Thumbnail from "./Thumbnail.jsx";
 import List from "@/components/VirtualGroupList";
-import useDirectoryStore, {UNSORTED} from "@/store/directoryStore.js";
-import useCategoryStore from "@/store/categoryStore.js";
+import useDirectoryStore, {UNSORTED, TRASH} from "@/store/categoryDirectoryStore.js";
+import {getCategoryString} from "@/businessLogic/directoryLogic.js";
 import {debounce} from "@/utils/utils.js";
 import {PREVIEW_PIC_SIZE} from "@/utils/constants.js";
 import style from "./style.module.scss";
@@ -11,7 +11,7 @@ function GroupHeader({name, count, isOpened})
 {
 	return <div className={style.header}>
 		<h3 className={count === 0 ? style.inactive : null}>
-			{name === "@@unsorted@@" ? "Unclassified" : name} 
+			{name} 
 			<span className={style.count}>{count}</span>
 		</h3>
 		{count !== 0 && <div className={`${style.foldIcon} ${isOpened ? style.opened : ""}`}></div>}
@@ -20,21 +20,23 @@ function GroupHeader({name, count, isOpened})
 
 function useDirectoryData()
 {
-	const directoryData = useDirectoryStore( (store)=>store.sorted.set(UNSORTED, store.unsorted) );
-	const categoryArr = useCategoryStore( store=>store.category );
+	const directoryData = useDirectoryStore( (store)=>store.data );
+	const categoryArr = useDirectoryStore( store=>store.category );
 	const data = useMemo( ()=>{
-		function makeData(name)
+		function makeData(key, name)
 		{
-			let content = directoryData.get(name) ?? null;
+			let content = directoryData.get(key) ?? null;
 			if(content !== null) content = [...content.keys()];
 			return {
-				name: name === UNSORTED ? "@@unsorted@@" : name,
+				id: getCategoryString(key),
+				name,
 				count: content === null ? 0 : content.length,
 				content
 			};
 		}
-		const realData = categoryArr.map( ({name})=>makeData(name) );
-		realData.push(makeData(UNSORTED));
+		const realData = categoryArr.map( ({hash, name})=>makeData(hash, name) );
+		realData.push(makeData(UNSORTED, "Unclassified"));
+		realData.push(makeData(TRASH, "Trash"));
 		return realData;
 	}, [directoryData, categoryArr] );
 

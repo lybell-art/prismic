@@ -14,6 +14,7 @@ function createHeader(item, template)
 /**
  * 그룹-아이템 형태로 구성된 아이템을 windowing으로 렌더링한 가상 리스트입니다.
  * @param rawData(Array({name, headercontent, count})) 렌더링할 가상 리스트의 원본.
+ *  id: 각 그룹의 식별자
  * 	name : 각 그룹의 이름
  * 	header : 각 그룹의 헤더에 렌더링될 아이템(optional)
  *  content : 각 그룹에 소속된 실제 데이터
@@ -36,7 +37,7 @@ function VirtualGroupList({ data: rawData,
 })
 {
 	// 그룹의 열고 닫는 상태 관리
-	const [foldList, setFoldState] = useState( new Map(rawData.map( ({name})=>[name, true] )) );
+	const [foldList, setFoldState] = useState( new Map(rawData.map( ({id})=>[id, true] )) );
 	// 스크롤 높이
 	const [scrollHeight, setScrollHeight] = useState(0);
 	// 컨테이너의 높이
@@ -55,10 +56,10 @@ function VirtualGroupList({ data: rawData,
 	}
 
 	// 각 그룹의 y 좌표와 높이를 구한다.
-	// data: Array({name, content, isOpened, count, yPos, height})
+	// data: Array({id, name, content, isOpened, count, yPos, height})
 	const [totalHeight, yPosData] = useMemo( ()=>{
 		const _data = rawData.map( (item, i)=>{
-			const isOpened = foldList.get(item.name) ?? true;
+			const isOpened = foldList.get(item.id) ?? true;
 			return {
 				...item,
 				isOpened,
@@ -82,7 +83,7 @@ function VirtualGroupList({ data: rawData,
 	}, [rawData, foldList, column, headerSize, itemInterval, categoryGap] );
 
 	// 각 그룹이 렌더링할 시작 인덱스와 종료 인덱스를 구한다. 시작 인덱스와 종료 인덱스는 포함된다.
-	// data: Array({name, content, isOpened, realCount, yPos, height, startIdx, endIdx})
+	// data: Array({id, name, content, isOpened, realCount, yPos, height, startIdx, endIdx})
 	const listItemData = useMemo( ()=>{
 		return yPosData.map( (item)=>{
 			const relativeStartPos = scrollHeight - item.yPos - headerSize;
@@ -98,8 +99,8 @@ function VirtualGroupList({ data: rawData,
 
 	return <div className={className} ref={containerRef} onScroll={debounce(e=>setScrollHeight(e.target.scrollTop))}>
 		{listItemData.map( props=><Group
-			setFold={()=>toggleFoldState(props.name)} 
-			key={props.name}
+			setFold={()=>toggleFoldState(props.id)} 
+			key={props.id}
 			column={column}
 			itemGap={itemGap}
 			itemSize={itemSize}

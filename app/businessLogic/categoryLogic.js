@@ -1,5 +1,4 @@
-import useCategory from "@/store/categoryStore.js";
-import {MAX_TRAINABLE_ITEMS} from "@/utils/constants.js";
+import useCategory from "@/store/categoryDirectoryStore.js";
 
 function validateCategory(newName, category = useCategory.getState().category)
 {
@@ -33,9 +32,4 @@ function convertKey(key)
 	return key;
 }
 
-function getTrainableMaxAmount(store)
-{
-	return store.category.length * MAX_TRAINABLE_ITEMS;
-}
-
-export {validateKey, validateCategory, convertKey, getTrainableMaxAmount};
+export {validateKey, validateCategory, convertKey};

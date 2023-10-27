@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef, Suspense } from "react";
 import ErrorBoundary from "@/components/common/ErrorBoundary.jsx";
 import CenterContainer from "@/components/CenterContainer";
 import ResetButton from "./ResetButton.jsx";
-import useDirectoryStore from "@/store/directoryStore.js";
+import useDirectoryStore from "@/store/categoryDirectoryStore.js";
 import {compress} from "@/businessLogic/downloadLogic.js";
 import style from "./style.module.scss";
 import DownloadImg from "@/assets/download.svg?react"; 
@@ -63,7 +63,7 @@ function DownloadContainer({resource})
 
 function DownloadPhase()
 {
-	const sorted = useDirectoryStore( store=>store.sorted );
+	const sorted = useDirectoryStore( store=>store.result() );
 	const [read, progress] = useCompress(sorted);
 
 	return <main>
