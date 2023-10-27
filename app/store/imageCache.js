@@ -53,6 +53,7 @@ export class ImageCache
 
 	getImage(src, width, height)
 	{
+		console.log(this.data);
 		const path = `${src}@@${width}x${height}`;
 		if(this.data.has(path)) return this.data.get(path);
 		const resource = this.makeImage(src, width, height);
@@ -67,6 +68,6 @@ export class ImageCache
 }
 
 
-const imgCacheContext = createContext(new ImageCache());
+const imgCacheContext = createContext(null);
 
 export default imgCacheContext;
