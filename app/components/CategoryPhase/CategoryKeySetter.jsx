@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import useCategoryStore from "@/store/categoryDirectoryStore.js";
+import keyListener from "@/store/keyListener.js";
 import {validateKey, convertKey} from "@/businessLogic/categoryLogic.js";
 import {getTextWidth} from "@/utils/utils.js";
 import style from "./style.module.scss";
@@ -15,6 +16,8 @@ function CategoryKeySetter({index})
 	const changeHotkey = useCategoryStore( store=>store.changeCategoryHotkey );
 	const [keyState, setKeyState] = useState(IDLE);
 	const [keyBuffer, setKeyBuffer] = useState(convertKey(keyCode));
+
+	// set text scale
 	const textScale = useMemo(()=>{
 		if(keyBuffer.length < 3) return 1;
 		const textWidth = getTextWidth(keyBuffer, "24px 'Prismic Main Font'");
@@ -22,10 +25,12 @@ function CategoryKeySetter({index})
 		return CONTAINER_WIDTH / textWidth;
 	}, [keyBuffer.length < 3 ? "" : keyBuffer]);
 
+	// set style with key input state
 	let statusStyle = "";
 	if(keyState === PEND_INPUT) statusStyle = style.pendInput;
 	else if(keyState === INVALID) statusStyle = style.invalidKey;
 
+	// add key down event listener
 	useEffect(()=>{
 		if(keyState !== PEND_INPUT) return;
 		function onKeyDown(e)
@@ -41,10 +46,11 @@ function CategoryKeySetter({index})
 				setKeyState(INVALID);
 			}
 		}
-		document.addEventListener("keydown", onKeyDown);
-		return ()=>document.removeEventListener("keydown", onKeyDown);
+		keyListener.addEventListener("keydown", onKeyDown);
+		return ()=>keyListener.removeEventListener("keydown", onKeyDown);
 	}, [keyState === PEND_INPUT]);
 
+	// add timeout when return from invalid
 	useEffect(()=>{
 		if(keyState !== INVALID) return;
 		const timeout = setTimeout( ()=>setKeyState(PEND_INPUT), 1000 );
