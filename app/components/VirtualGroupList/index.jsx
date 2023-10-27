@@ -1,4 +1,4 @@
-import { useState, useMemo, createElement } from "react";
+import { useState, useMemo, useEffect, createElement } from "react";
 import Group from "./Group.jsx";
 import useContainerHeight from "@/hooks/useContainerHeight.js";
 import { debounce, clamp } from "@/utils/utils.js";
@@ -28,12 +28,14 @@ function createHeader(item, template)
  * @param template(string|class/func ReactComponent) 아이템 템플릿
  * @param headerTemplate(class/func ReactComponent) 헤더 템플릿
  * @param pickFunc(Function(content, index)=>Any) index에서 아이템을 반환하는 매핑 함수
+ * @param visible(boolean) 보이는지에 대한 여부
  * @return ReactComponent
  */
 function VirtualGroupList({ data: rawData, 
 	column=1, headerSize, itemSize, categoryGap=10, 
 	itemGap=0, 
-	className="", template, headerTemplate=null, pickFunc 
+	className="", template, headerTemplate=null, pickFunc,
+	visible=true
 })
 {
 	// 그룹의 열고 닫는 상태 관리
@@ -97,8 +99,19 @@ function VirtualGroupList({ data: rawData,
 		} );
 	}, [yPosData, scrollHeight, containerHeight, column, headerSize, itemInterval, itemGap] );
 
-	return <div className={className} ref={containerRef} onScroll={debounce(e=>setScrollHeight(e.target.scrollTop))}>
-		{listItemData.map( props=><Group
+	useEffect( ()=>{
+		if(!visible || containerRef.current === null) return;
+		containerRef.current.scrollTop = scrollHeight;
+	}, [visible] );
+
+	function changeScrollHeight(e)
+	{
+		if(!visible) return;
+		setScrollHeight(e.target.scrollTop);
+	}
+
+	return <div className={className} ref={containerRef} onScroll={debounce(changeScrollHeight)}>
+		{visible && listItemData.map( props=><Group
 			setFold={()=>toggleFoldState(props.id)} 
 			key={props.id}
 			column={column}

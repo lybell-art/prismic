@@ -7,7 +7,7 @@ function DirectoryViewer({isOpened, close})
 	return <div className={`${style.outerContainer} ${isOpened ? "" : style.hidden}`}>
 		<div className="backdrop" onClick={close} />
 		<div className={style.viewerContainer}>
-			{isOpened && <DirectoryList />}
+			<DirectoryList visible={isOpened} />
 			<AddButton />
 		</div>
 	</div>;

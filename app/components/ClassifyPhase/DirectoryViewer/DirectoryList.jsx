@@ -58,7 +58,7 @@ function useWidthResponsiveEffect()
 	return column;
 }
 
-function DirectoryList()
+function DirectoryList({visible = true}={})
 {
 	const data = useDirectoryData();
 	const column = useWidthResponsiveEffect();
@@ -73,6 +73,7 @@ function DirectoryList()
 		className={style.list}
 		template={Thumbnail}
 		headerTemplate={GroupHeader}
+		visible={visible}
 	/>;
 }
 
