@@ -54,6 +54,12 @@ const categoryDirectoryStore = {
 			.filter(({hash})=>this.data.has(hash))
 			.map( ({hash, name})=>[name, this.data.get(hash)] );
 	},
+	get hasImageInCategory() {
+		return (index)=>{
+			const {hash} = this.category[index];
+			return this.data.has(hash) && this.data.get(hash).size > 0;
+		}
+	},
 	get doneAmount() {
 		return this._metadata.size - this.trash().size - this.unsorted().size + 1;
 	},

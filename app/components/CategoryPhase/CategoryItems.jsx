@@ -2,6 +2,7 @@ import { useReducer, useEffect, useRef } from "react";
 import useCategoryStore from "@/store/categoryDirectoryStore.js";
 import CategoryKeySetter from "./CategoryKeySetter.jsx";
 import CategoryNameSetter from "./CategoryNameSetter.jsx";
+import CategoryRemover from "./CategoryRemover.jsx";
 import style from "./style.module.scss";
 
 function handleFocusIndex(state, action)
@@ -19,14 +20,10 @@ function handleFocusIndex(state, action)
 
 function CategoryItem({index, isFocus, handleFocus})
 {
-	const remove = useCategoryStore( store=>store.removeCategory );
-	
 	return <div className={style.item}>
 		<CategoryKeySetter index={index} />
 		<CategoryNameSetter index={index} isFocus={isFocus} handleFocus={handleFocus}/>
-		<div className={style.deleteButton} onClick={()=>remove(index)}>
-			<img src="/remove.svg" alt="remove" />
-		</div>
+		<CategoryRemover index={index} />
 	</div>;
 }
 
