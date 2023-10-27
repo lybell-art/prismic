@@ -1,47 +1,39 @@
+import CategoryItems from "./CategoryItems.jsx";
 import NextButton from "@/components/NextButton";
-import CategoryKeySetter from "./CategoryKeySetter.jsx";
-import CategoryNameSetter from "./CategoryNameSetter.jsx";
 import useCategoryStore from "@/store/categoryDirectoryStore.js";
 import {MAX_CATEGORY_NUM} from "@/utils/constants.js";
 import style from "./style.module.scss";
 import AddIcon from "@/assets/add.svg?react";
 
-function CategoryItem({index})
+function CategoryAddButton()
 {
-	const remove = useCategoryStore( store=>store.removeCategory );
-	
-	return <div className={style.item}>
-		<CategoryKeySetter index={index} />
-		<CategoryNameSetter index={index} />
-		<div className={style.deleteButton} onClick={()=>remove(index)}>
-			<img src="/remove.svg" alt="remove" />
-		</div>
-	</div>;
+	const canAdd = useCategoryStore( store=>store.category.length < MAX_CATEGORY_NUM );
+	const addCategory = useCategoryStore( store=>store.addCategory );
+
+	function addClass()
+	{
+		if(!canAdd) return;
+		addCategory();
+	}
+
+	return <div className={`grad-border ${style.addButton}`} onClick={addClass}>
+		<AddIcon className={style.addIcon} />
+		<p>Add Class</p>
+	</div>
 }
 
 function CategoryPhase()
 {
-	const category = useCategoryStore( store=>store.category );
-	const add = useCategoryStore( store=>store.addCategory );
-	function addClass()
-	{
-		if(category.length >= MAX_CATEGORY_NUM) return;
-		add();
-	}
+	const length = useCategoryStore( store=>store.category.length );
 
 	return <>
 		<main>
 			<div className={style.container}>
-				{category.map(({hash},index)=><CategoryItem index={index} key={hash}/>)}
-				{category.length < MAX_CATEGORY_NUM && 
-					<div className={`grad-border ${style.addButton}`} onClick={addClass}>
-						<AddIcon className={style.addIcon} />
-						<p>Add Class</p>
-					</div>
-				}
+				<CategoryItems />
+				{length < MAX_CATEGORY_NUM && <CategoryAddButton />}
 			</div>
 		</main>
-		<NextButton inactive={category.length === 0}/>
+		<NextButton inactive={length === 0}/>
 	</>;
 }
 
