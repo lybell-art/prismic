@@ -107,7 +107,7 @@
 	@media (max-width: 767px){
 		position: relative;
 		&:hover {
-			border: unset;
+			border: 3px dashed white;
 		}
 	}
 }
