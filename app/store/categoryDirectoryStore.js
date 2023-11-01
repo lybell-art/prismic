@@ -38,6 +38,7 @@ const categoryDirectoryStore = {
 	data: MapI(),
 	currentFile: null,
 	_metadata: new DirectoryMetadata(),
+	_resultSnapshot: {data: null, result: null},
 
 	// getters(computed value)
 	get unsorted() {
@@ -50,9 +51,14 @@ const categoryDirectoryStore = {
 		return this.data.get(TRASH) ?? MapI();
 	},
 	get result() {
-		return this.category
-			.filter(({hash})=>this.data.has(hash))
-			.map( ({hash, name})=>[name, this.data.get(hash)] );
+		if(this._resultSnapshot.result === null || this._resultSnapshot.data !== this.data.hashCode())
+		{
+			this._resultSnapshot.data = this.data.hashCode();
+			this._resultSnapshot.result = this.category
+				.filter(({hash})=>this.data.has(hash))
+				.map( ({hash, name})=>[name, this.data.get(hash)] );
+		}
+		return this._resultSnapshot.result;
 	},
 	get hasImageInCategory() {
 		return (index)=>{
