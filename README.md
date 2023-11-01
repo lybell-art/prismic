@@ -1,5 +1,5 @@
 # Prismic
-<img width="1280" alt="prismic_screenshot" src="https://github.com/lybell-art/prismic/assets/32293736/234ff653-b50d-4342-81b3-51bb461a1a20">
+<img width="1280" alt="prismic_screenshot" src="https://github.com/lybell-art/prismic/assets/32293736/8308176f-fb1e-4dc2-bbc4-5b41afa59cce">
 
 **Prismic**은 **수많은 사진들을 빠르고 쉽게 분류할 수 있는 유틸리티 웹 어플리케이션**입니다. 사진 관련 인공지능 학습을 할 때 유용하게 사용할 목적으로 제작되었으며, 목적의 특성상 1000개 이상의 대규모의 사진도 성능 저하 없이 분류할 수 있습니다.
 
