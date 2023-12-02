@@ -1,5 +1,6 @@
 import {useEffect, useCallback} from "react";
 import useDirectoryStore from "@/store/categoryDirectoryStore.js";
+import removeIcon from "@/assets/remove.svg";
 import style from "./style.module.scss";
 
 function DiscardButton()
@@ -12,7 +13,7 @@ function DiscardButton()
 	}, [_discard, setCurrentFile]);
 
 	return <div className={`${style.button} ${style.discardButton}`} onClick={discard}>
-		<img src="/remove.svg" alt="remove" />
+		<img src={removeIcon} alt="remove" />
 		<p>Discard</p>
 	</div>;
 }

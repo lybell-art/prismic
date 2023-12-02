@@ -1,6 +1,7 @@
 import {useCallback} from "react";
 import useConfirmModal from "@/components/Modal/ConfirmModal.jsx";
 import useCategoryStore from "@/store/categoryDirectoryStore.js";
+import removeIcon from "@/assets/remove.svg";
 import style from "./style.module.scss";
 
 function CategoryRemover({index})
@@ -19,7 +20,7 @@ function CategoryRemover({index})
 
 	return <>
 		<div className={style.deleteButton} onClick={onClick}>
-			<img src="/remove.svg" alt="remove" />
+			<img src={removeIcon} alt="remove" />
 		</div>
 		<ConfirmModal promptMessage="There is already images in the category. Are you sure to delete?" confirmMessage="Discard"/>
 	</>
